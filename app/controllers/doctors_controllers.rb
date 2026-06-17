@@ -29,4 +29,10 @@ class DoctorsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    @doctor.destroy
+
+    redirect_to doctors_path, notice: "Doctor deleted successfully"
+  end
 end
