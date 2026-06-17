@@ -41,4 +41,8 @@ class DoctorsController < ApplicationController
   def doctor_params
     params.require(:doctor).permit(:name, :specialization)
   end
+
+  def set_doctor
+    @doctor = Doctor.find(params[:id])
+  end
 end
