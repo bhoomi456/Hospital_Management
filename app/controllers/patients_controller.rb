@@ -17,4 +17,8 @@ class PatientsController < ApplicationController
   def patients_params
     params.require(:patient).permit(:name, :age, :gender)
   end
+
+  def set_patient
+    @patient = Patient.find(params[:id])
+  end
 end
