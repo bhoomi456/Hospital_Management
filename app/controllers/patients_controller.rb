@@ -12,4 +12,9 @@ class PatientsController < ApplicationController
 
   def edit
   end
+
+  private
+  def patients_params
+    params.require(:patient).permit(:name, :age, :gender)
+  end
 end
