@@ -1,0 +1,30 @@
+<% if notice %>
+  <p style="color: red;">
+  <%= notice %></p>
+<% end %>
+
+<h1>Doctors</h1>
+
+<%= link_to "New patient", new_patient_path%>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Specialization</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @doctors.each do |doctor|%>
+      <tr>
+        <td><%= doctor.name %></td>
+        <td><%= doctor.specialization %></td>
+
+        <td><%= link_to "Show", doctor_path(doctor) %></td>
+        <td><%= link_to "Edit", edit_doctor_path(doctor) %></td>
+        <td><%= link_to "Delete",doctor_path(doctor),data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
