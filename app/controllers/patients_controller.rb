@@ -29,6 +29,12 @@ class PatientsController < ApplicationController
         render :edit, status: :unprocessable_entity
       end
     end
+
+    def destroy
+      @patient.destroy
+
+      redirect_to patients_path, notice: "Patient deleted successfully"
+    end
   end
 
   private
