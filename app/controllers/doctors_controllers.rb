@@ -21,4 +21,12 @@ class DoctorsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def update
+    if @doctor.update(doctor_params)
+      redirect_to doctors_path, notice: "Doctor Updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 end
