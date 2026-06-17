@@ -13,6 +13,16 @@ class PatientsController < ApplicationController
   def edit
   end
 
+  def create
+    @patient = Patient.new(patients_params)
+
+    if @patient.save
+      redirect_to patients_path, notice: "Patient added successfully"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   private
   def patients_params
     params.require(:patient).permit(:name, :age, :gender)
