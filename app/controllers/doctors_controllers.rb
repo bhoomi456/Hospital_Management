@@ -35,4 +35,10 @@ class DoctorsController < ApplicationController
 
     redirect_to doctors_path, notice: "Doctor deleted successfully"
   end
+
+  private
+
+  def doctor_params
+    params.require(:doctor).permit(:name, :specialization)
+  end
 end
