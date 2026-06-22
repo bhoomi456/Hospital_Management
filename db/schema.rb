@@ -10,14 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_080425) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_21_103200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "doctor_id", null: false
+    t.bigint "patient_id", null: false
+    t.string "reason"
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
 
   create_table "doctor_profiles", force: :cascade do |t|
     t.integer "consultation_fee"
     t.datetime "created_at", null: false
-    t.bigint "doctor_id", null: false
+    t.bigint "doctor_id"
     t.integer "experience"
     t.string "qualification"
     t.datetime "updated_at", null: false
@@ -39,17 +49,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_19_080425) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "medicines", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "medicines_patients", id: false, force: :cascade do |t|
+    t.bigint "medicine_id", null: false
+    t.bigint "patient_id", null: false
+  end
+
   create_table "patients", force: :cascade do |t|
     t.integer "age"
     t.datetime "created_at", null: false
-    t.bigint "doctor_id", null: false
     t.string "gender"
     t.string "name"
     t.datetime "updated_at", null: false
-    t.index ["doctor_id"], name: "index_patients_on_doctor_id"
   end
 
+  add_foreign_key "appointments", "doctors"
+  add_foreign_key "appointments", "patients"
   add_foreign_key "doctor_profiles", "doctors"
   add_foreign_key "doctors", "hospitals"
-  add_foreign_key "patients", "doctors"
 end
